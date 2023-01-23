@@ -1,4 +1,7 @@
-function forms() {
+import {closeModal, openModal} from "./modal";
+import { postData } from "../services/services";
+
+function forms(modalTimerId) {
 
     // Forms
 
@@ -12,32 +15,6 @@ function forms() {
     forms.forEach(item => {
         bindPostData(item);
     });
-
-    // указываем что внутри функции будет асинхр код
-    const postData = async (url, data) => {
-        // ждёт результата
-        let res = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: data
-        });
-        // ждёт результата
-        return await res.json();
-    };
-
-    // указываем что внутри функции будет асинхр код
-    async function getResource(url) {
-         // ждёт результата
-        let res = await fetch(url);
-    
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-        // ждёт результата
-        return await res.json();
-    }
 
     // вывод статуса отправки данных
     function bindPostData(form) {
@@ -86,7 +63,7 @@ function forms() {
         prevModalDialog.classList.add('hide');
 
         // открываем модальную форму на всякий случай если её могли закрыть
-        openModal();
+        openModal('.modal', modalTimerId);
 
         // создаём элемент для вывода благодарности
         const thanksModal = document.createElement('div');
@@ -107,10 +84,12 @@ function forms() {
             // возвращаем видимость предыдущему модальному окну
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 4000);
     }
 
 }
 
-module.exports = forms;
+// module.exports = forms;
+
+export default forms;

@@ -1,3 +1,5 @@
+import { getResource } from "../services/services";
+
 function cards() {
     
     // Используем классы для создание карточек меню
@@ -90,7 +92,9 @@ function cards() {
     //             new MenuCard(img, altimg, title, descr, price, ".menu .container").render();
     //         });
     //     });
-
+   
 }
 
-module.exports = cards;
+// module.exports = cards;
+
+export default cards;
